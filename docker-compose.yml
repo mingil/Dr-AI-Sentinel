@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  dr-ai-bot:
+    build: .
+    container_name: Dr-AI-Sentinel
+    restart: on-failure:5
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      # 중요: 데이터와 로그는 밖에서도 볼 수 있게 연결 (매핑)
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./backups:/app/backups
+      # 중요: 비밀번호 금고 연결
+      - ./.env:/app/.env
