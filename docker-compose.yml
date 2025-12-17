@@ -4,13 +4,12 @@ services:
   dr-ai-bot:
     build: .
     container_name: Dr-AI-Sentinel
-    restart: on-failure:5
+    restart: unless-stopped
     environment:
       - TZ=Asia/Seoul
+      - PYTHONPATH=/app  # <--- [핵심] 이 줄이 추가되었습니다!
     volumes:
-      # 중요: 데이터와 로그는 밖에서도 볼 수 있게 연결 (매핑)
       - ./data:/app/data
       - ./logs:/app/logs
       - ./backups:/app/backups
-      # 중요: 비밀번호 금고 연결
       - ./.env:/app/.env
